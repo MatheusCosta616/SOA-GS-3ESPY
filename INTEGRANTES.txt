@@ -1,0 +1,60 @@
+================================================================================
+PLATAFORMA DE UPSKILLING/RESKILLING - API RESTFUL
+Global Solution 2025 - O Futuro do Trabalho
+================================================================================
+
+INTEGRANTES DO PROJETO
+----------------------
+Nome: Caíque Walter Silva
+RM: 550693
+
+Nome: Guilherme Nobre Bernardo
+RM: 98604
+
+Nome: Matheus José de Lima Costa
+RM: 551157
+
+
+RESUMO DA SOLUÇÃO
+-----------------
+API RESTful desenvolvida em Java 21 com Spring Boot 3.2.0 para uma plataforma 
+de Upskilling e Reskilling voltada ao Futuro do Trabalho 2030+.
+
+A solução implementa:
+- 2 CRUDs completos (Usuários e Trilhas de Aprendizagem)
+- Arquitetura em camadas (Controller → Service → Repository)
+- Persistência com H2 Database e migrações via Liquibase
+- Validações de dados com Bean Validation
+- Tratamento centralizado de exceções
+- Documentação interativa com Swagger/OpenAPI
+- Testes unitários automatizados (16 testes com Mockito)
+- Seeds de dados iniciais (usuários, trilhas, competências)
+
+A plataforma conecta profissionais a trilhas de capacitação focadas em 
+competências do futuro (IA, Análise de Dados, Soft Skills, etc.), contribuindo 
+para os Objetivos de Desenvolvimento Sustentável (ODS 4, 8, 9 e 10) e preparando 
+pessoas para as transformações do mercado de trabalho impulsionadas por tecnologia 
+e automação.
+
+
+TECNOLOGIAS UTILIZADAS
+----------------------
+- Java 21
+- Spring Boot 3.2.0
+- Spring Data JPA
+- H2 Database (em memória)
+- Liquibase (migrações de banco)
+- Swagger/OpenAPI 2.3.0
+- Mockito (testes unitários)
+- Maven
+
+
+EXECUÇÃO DO PROJETO
+-------------------
+1. Clone o repositório
+2. Execute: .\mvnw.cmd clean spring-boot:run
+3. Acesse: http://localhost:8080
+4. Documentação: http://localhost:8080/swagger-ui.html
+
+
+================================================================================

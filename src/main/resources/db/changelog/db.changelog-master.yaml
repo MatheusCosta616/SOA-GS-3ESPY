@@ -1,0 +1,560 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: fiap-team
+      comment: Create initial tables
+      changes:
+        - createTable:
+            tableName: usuarios
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: nome
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(150)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: area_atuacao
+                  type: VARCHAR(100)
+              - column:
+                  name: nivel_carreira
+                  type: VARCHAR(50)
+              - column:
+                  name: data_cadastro
+                  type: DATE
+                  constraints:
+                    nullable: false
+
+        - createTable:
+            tableName: trilhas
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: nome
+                  type: VARCHAR(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: descricao
+                  type: TEXT
+              - column:
+                  name: nivel
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: carga_horaria
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: foco_principal
+                  type: VARCHAR(100)
+
+        - createTable:
+            tableName: competencias
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: nome
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: categoria
+                  type: VARCHAR(100)
+              - column:
+                  name: descricao
+                  type: TEXT
+
+        - createTable:
+            tableName: trilha_competencia
+            columns:
+              - column:
+                  name: trilha_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: competencia_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        
+        - addPrimaryKey:
+            tableName: trilha_competencia
+            columnNames: trilha_id, competencia_id
+            constraintName: pk_trilha_competencia
+
+        - addForeignKeyConstraint:
+            baseTableName: trilha_competencia
+            baseColumnNames: trilha_id
+            constraintName: fk_trilha_competencia_trilha
+            referencedTableName: trilhas
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: trilha_competencia
+            baseColumnNames: competencia_id
+            constraintName: fk_trilha_competencia_competencia
+            referencedTableName: competencias
+            referencedColumnNames: id
+
+        - createTable:
+            tableName: matriculas
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: usuario_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: trilha_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: data_inscricao
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: matriculas
+            baseColumnNames: usuario_id
+            constraintName: fk_matricula_usuario
+            referencedTableName: usuarios
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: matriculas
+            baseColumnNames: trilha_id
+            constraintName: fk_matricula_trilha
+            referencedTableName: trilhas
+            referencedColumnNames: id
+
+  - changeSet:
+      id: 2
+      author: fiap-team
+      comment: Insert seed data
+      changes:
+        - insert:
+            tableName: usuarios
+            columns:
+              - column:
+                  name: nome
+                  value: Ana Silva
+              - column:
+                  name: email
+                  value: ana.silva@email.com
+              - column:
+                  name: area_atuacao
+                  value: Desenvolvimento
+              - column:
+                  name: nivel_carreira
+                  value: Pleno
+              - column:
+                  name: data_cadastro
+                  value: '2025-01-15'
+
+        - insert:
+            tableName: usuarios
+            columns:
+              - column:
+                  name: nome
+                  value: Carlos Santos
+              - column:
+                  name: email
+                  value: carlos.santos@email.com
+              - column:
+                  name: area_atuacao
+                  value: Marketing
+              - column:
+                  name: nivel_carreira
+                  value: Junior
+              - column:
+                  name: data_cadastro
+                  value: '2025-02-20'
+
+        - insert:
+            tableName: usuarios
+            columns:
+              - column:
+                  name: nome
+                  value: Maria Oliveira
+              - column:
+                  name: email
+                  value: maria.oliveira@email.com
+              - column:
+                  name: area_atuacao
+                  value: Recursos Humanos
+              - column:
+                  name: nivel_carreira
+                  value: Senior
+              - column:
+                  name: data_cadastro
+                  value: '2025-03-10'
+
+        - insert:
+            tableName: usuarios
+            columns:
+              - column:
+                  name: nome
+                  value: João Pereira
+              - column:
+                  name: email
+                  value: joao.pereira@email.com
+              - column:
+                  name: area_atuacao
+                  value: Atendimento
+              - column:
+                  name: nivel_carreira
+                  value: Em transição
+              - column:
+                  name: data_cadastro
+                  value: '2025-04-05'
+
+        - insert:
+            tableName: competencias
+            columns:
+              - column:
+                  name: nome
+                  value: Inteligência Artificial
+              - column:
+                  name: categoria
+                  value: Tecnologia
+              - column:
+                  name: descricao
+                  value: Conhecimentos em IA, Machine Learning e Deep Learning
+
+        - insert:
+            tableName: competencias
+            columns:
+              - column:
+                  name: nome
+                  value: Análise de Dados
+              - column:
+                  name: categoria
+                  value: Tecnologia
+              - column:
+                  name: descricao
+                  value: Big Data, análise estatística e visualização de dados
+
+        - insert:
+            tableName: competencias
+            columns:
+              - column:
+                  name: nome
+                  value: Cloud Computing
+              - column:
+                  name: categoria
+                  value: Tecnologia
+              - column:
+                  name: descricao
+                  value: AWS, Azure, GCP e arquitetura de nuvem
+
+        - insert:
+            tableName: competencias
+            columns:
+              - column:
+                  name: nome
+                  value: Pensamento Crítico
+              - column:
+                  name: categoria
+                  value: Humana
+              - column:
+                  name: descricao
+                  value: Capacidade de análise e resolução de problemas complexos
+
+        - insert:
+            tableName: competencias
+            columns:
+              - column:
+                  name: nome
+                  value: Empatia
+              - column:
+                  name: categoria
+                  value: Humana
+              - column:
+                  name: descricao
+                  value: Inteligência emocional e relacionamento interpessoal
+
+        - insert:
+            tableName: competencias
+            columns:
+              - column:
+                  name: nome
+                  value: Colaboração
+              - column:
+                  name: categoria
+                  value: Humana
+              - column:
+                  name: descricao
+                  value: Trabalho em equipe e comunicação efetiva
+
+        - insert:
+            tableName: competencias
+            columns:
+              - column:
+                  name: nome
+                  value: Gestão Ágil
+              - column:
+                  name: categoria
+                  value: Gestão
+              - column:
+                  name: descricao
+                  value: Scrum, Kanban e metodologias ágeis
+
+        - insert:
+            tableName: competencias
+            columns:
+              - column:
+                  name: nome
+                  value: Sustentabilidade
+              - column:
+                  name: categoria
+                  value: Gestão
+              - column:
+                  name: descricao
+                  value: Green Tech e práticas ESG
+
+        - insert:
+            tableName: trilhas
+            columns:
+              - column:
+                  name: nome
+                  value: IA para Iniciantes
+              - column:
+                  name: descricao
+                  value: Introdução prática à Inteligência Artificial e suas aplicações no mercado de trabalho
+              - column:
+                  name: nivel
+                  value: INICIANTE
+              - column:
+                  name: carga_horaria
+                  valueNumeric: 40
+              - column:
+                  name: foco_principal
+                  value: IA
+
+        - insert:
+            tableName: trilhas
+            columns:
+              - column:
+                  name: nome
+                  value: Data Science Avançado
+              - column:
+                  name: descricao
+                  value: Análise de dados, Machine Learning e Big Data para profissionais experientes
+              - column:
+                  name: nivel
+                  value: AVANCADO
+              - column:
+                  name: carga_horaria
+                  valueNumeric: 80
+              - column:
+                  name: foco_principal
+                  value: Dados
+
+        - insert:
+            tableName: trilhas
+            columns:
+              - column:
+                  name: nome
+                  value: Soft Skills para o Futuro
+              - column:
+                  name: descricao
+                  value: Desenvolvimento de competências humanas essenciais para 2030
+              - column:
+                  name: nivel
+                  value: INTERMEDIARIO
+              - column:
+                  name: carga_horaria
+                  valueNumeric: 30
+              - column:
+                  name: foco_principal
+                  value: Soft Skills
+
+        - insert:
+            tableName: trilhas
+            columns:
+              - column:
+                  name: nome
+                  value: Cloud Computing na Prática
+              - column:
+                  name: descricao
+                  value: Arquitetura de nuvem e serviços AWS/Azure para profissionais de TI
+              - column:
+                  name: nivel
+                  value: INTERMEDIARIO
+              - column:
+                  name: carga_horaria
+                  valueNumeric: 60
+              - column:
+                  name: foco_principal
+                  value: Cloud
+
+        - insert:
+            tableName: trilhas
+            columns:
+              - column:
+                  name: nome
+                  value: Green Tech e Sustentabilidade
+              - column:
+                  name: descricao
+                  value: Tecnologias verdes e práticas sustentáveis no ambiente corporativo
+              - column:
+                  name: nivel
+                  value: INICIANTE
+              - column:
+                  name: carga_horaria
+                  valueNumeric: 35
+              - column:
+                  name: foco_principal
+                  value: Green Tech
+
+        - insert:
+            tableName: trilha_competencia
+            columns:
+              - column:
+                  name: trilha_id
+                  valueNumeric: 1
+              - column:
+                  name: competencia_id
+                  valueNumeric: 1
+
+        - insert:
+            tableName: trilha_competencia
+            columns:
+              - column:
+                  name: trilha_id
+                  valueNumeric: 1
+              - column:
+                  name: competencia_id
+                  valueNumeric: 4
+
+        - insert:
+            tableName: trilha_competencia
+            columns:
+              - column:
+                  name: trilha_id
+                  valueNumeric: 2
+              - column:
+                  name: competencia_id
+                  valueNumeric: 1
+
+        - insert:
+            tableName: trilha_competencia
+            columns:
+              - column:
+                  name: trilha_id
+                  valueNumeric: 2
+              - column:
+                  name: competencia_id
+                  valueNumeric: 2
+
+        - insert:
+            tableName: trilha_competencia
+            columns:
+              - column:
+                  name: trilha_id
+                  valueNumeric: 2
+              - column:
+                  name: competencia_id
+                  valueNumeric: 4
+
+        - insert:
+            tableName: trilha_competencia
+            columns:
+              - column:
+                  name: trilha_id
+                  valueNumeric: 3
+              - column:
+                  name: competencia_id
+                  valueNumeric: 4
+
+        - insert:
+            tableName: trilha_competencia
+            columns:
+              - column:
+                  name: trilha_id
+                  valueNumeric: 3
+              - column:
+                  name: competencia_id
+                  valueNumeric: 5
+
+        - insert:
+            tableName: trilha_competencia
+            columns:
+              - column:
+                  name: trilha_id
+                  valueNumeric: 3
+              - column:
+                  name: competencia_id
+                  valueNumeric: 6
+
+        - insert:
+            tableName: trilha_competencia
+            columns:
+              - column:
+                  name: trilha_id
+                  valueNumeric: 4
+              - column:
+                  name: competencia_id
+                  valueNumeric: 3
+
+        - insert:
+            tableName: trilha_competencia
+            columns:
+              - column:
+                  name: trilha_id
+                  valueNumeric: 4
+              - column:
+                  name: competencia_id
+                  valueNumeric: 4
+
+        - insert:
+            tableName: trilha_competencia
+            columns:
+              - column:
+                  name: trilha_id
+                  valueNumeric: 5
+              - column:
+                  name: competencia_id
+                  valueNumeric: 8
