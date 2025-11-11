@@ -30,12 +30,6 @@ A solução implementa:
 - Testes unitários automatizados (16 testes com Mockito)
 - Seeds de dados iniciais (usuários, trilhas, competências)
 
-A plataforma conecta profissionais a trilhas de capacitação focadas em 
-competências do futuro (IA, Análise de Dados, Soft Skills, etc.), contribuindo 
-para os Objetivos de Desenvolvimento Sustentável (ODS 4, 8, 9 e 10) e preparando 
-pessoas para as transformações do mercado de trabalho impulsionadas por tecnologia 
-e automação.
-
 
 TECNOLOGIAS UTILIZADAS
 ----------------------
